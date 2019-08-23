@@ -30,6 +30,8 @@ typedef struct {
 
 @interface WKCGitchView()
 {
+    
+    
     UIView * _superView;
     CGRect _frame;
     CGRect _currentFrame;
@@ -140,6 +142,8 @@ typedef struct {
     _type = type;
     if (!_image) return;
     
+    self.startTimeInterval = 0;
+    
     switch (type) {
         case WKCGitchTypeNormal:
         {
@@ -224,12 +228,15 @@ typedef struct {
 
 - (NSArray<UIImage *> *)images
 {
-    [_imagesArray removeObjectAtIndex:0];
-    return _imagesArray.mutableCopy;
+    if (_imagesArray && _imagesArray.count != 0) {
+        [_imagesArray removeObjectAtIndex:0];
+    }
+    return _imagesArray;
 }
 
 - (NSData *)gifData
 {
+    
     return [self animatedGifWithArray:self.images];
 }
 
@@ -400,12 +407,12 @@ typedef struct {
     [self.context presentRenderbuffer:GL_RENDERBUFFER];
     
     // 去掉几张黑屏的
-    BOOL isCanAdd = (currentTime > 0 && currentTime < _currentOnceTime / 2.0) || (currentTime > _currentOnceTime / 2.0 && currentTime < _currentOnceTime) ;
+    BOOL isCanAdd = ((currentTime > 0) && (currentTime < _currentOnceTime / 2.0)) || ((currentTime > _currentOnceTime / 2.0) && (currentTime < _currentOnceTime)) ;
+    NSLog(@"%f %f %d", currentTime, _currentOnceTime, isCanAdd);
     if (isCanAdd) {
-        UIImage * image = [self imageFromTexture];
-        if (image) {
-            [_imagesArray addObject:image];
-        }
+         UIImage * image = [self imageFromTexture];
+         [_imagesArray addObject:image];
+        NSLog(@"加了一张图");
     }
 }
 
@@ -564,17 +571,21 @@ typedef struct {
 {
     [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
         if (status == PHAuthorizationStatusDenied || status == PHAuthorizationStatusRestricted) {
-            if (handle) {
-                handle(NO);
-            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (handle) {
+                    handle(NO);
+                }
+            });
         } else {
             [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
                 PHAssetResourceCreationOptions *options = [[PHAssetResourceCreationOptions alloc] init];
                 [[PHAssetCreationRequest creationRequestForAsset] addResourceWithType:PHAssetResourceTypePhoto data:self.gifData options:options];
             } completionHandler:^(BOOL success, NSError * _Nullable error) {
-                if (handle) {
-                    handle(success);
-                }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (handle) {
+                        handle(success);
+                    }
+                });
             }];
         }
     }];
