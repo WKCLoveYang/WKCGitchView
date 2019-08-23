@@ -407,12 +407,10 @@ typedef struct {
     [self.context presentRenderbuffer:GL_RENDERBUFFER];
     
     // 去掉几张黑屏的
-    BOOL isCanAdd = ((currentTime > 0) && (currentTime < _currentOnceTime / 2.0)) || ((currentTime > _currentOnceTime / 2.0) && (currentTime < _currentOnceTime)) ;
-    NSLog(@"%f %f %d", currentTime, _currentOnceTime, isCanAdd);
+    BOOL isCanAdd = ((currentTime > 0) && (currentTime < _currentOnceTime / 2.0)) || ((currentTime > _currentOnceTime / 2.0) && (currentTime < _currentOnceTime));
     if (isCanAdd) {
          UIImage * image = [self imageFromTexture];
          [_imagesArray addObject:image];
-        NSLog(@"加了一张图");
     }
 }
 
