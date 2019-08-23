@@ -1,0 +1,16 @@
+${PODS_ROOT}/Target Support Files/Pods-default-Demo/Pods-default-Demo-resources.sh
+${PODS_CONFIGURATION_BUILD_DIR}/JGProgressHUD/JGProgressHUD.bundle
+${PODS_ROOT}/WKCGitchView/WKCGitchView/Source/Glitch.fsh
+${PODS_ROOT}/WKCGitchView/WKCGitchView/Source/Glitch.vsh
+${PODS_ROOT}/WKCGitchView/WKCGitchView/Source/normal.fsh
+${PODS_ROOT}/WKCGitchView/WKCGitchView/Source/normal.vsh
+${PODS_ROOT}/WKCGitchView/WKCGitchView/Source/scale.fsh
+${PODS_ROOT}/WKCGitchView/WKCGitchView/Source/scale.vsh
+${PODS_ROOT}/WKCGitchView/WKCGitchView/Source/Shake.fsh
+${PODS_ROOT}/WKCGitchView/WKCGitchView/Source/Shake.vsh
+${PODS_ROOT}/WKCGitchView/WKCGitchView/Source/ShineWhite.fsh
+${PODS_ROOT}/WKCGitchView/WKCGitchView/Source/ShineWhite.vsh
+${PODS_ROOT}/WKCGitchView/WKCGitchView/Source/SoulOut.fsh
+${PODS_ROOT}/WKCGitchView/WKCGitchView/Source/SoulOut.vsh
+${PODS_ROOT}/WKCGitchView/WKCGitchView/Source/Vertigo.fsh
+${PODS_ROOT}/WKCGitchView/WKCGitchView/Source/Vertigo.vsh
